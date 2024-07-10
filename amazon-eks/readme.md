@@ -44,11 +44,11 @@ kubectl create ns jenkins
 kubectl get storageclass
 
 # create volume
-kubectl apply -f ./jenkins/amazon-eks/jenkins.pv.yaml
+kubectl apply -f ./amazon-eks/jenkins.pv.yaml
 kubectl get pv
 
 # create volume claim
-kubectl apply -n jenkins -f ./jenkins/amazon-eks/jenkins.pvc.yaml
+kubectl apply -n jenkins -f ./amazon-eks/jenkins.pvc.yaml
 kubectl -n jenkins get pvc
 ```
 
@@ -56,9 +56,9 @@ kubectl -n jenkins get pvc
 
 ```
 # rbac
-kubectl apply -n jenkins -f ./jenkins/jenkins.rbac.yaml
+kubectl apply -n jenkins -f ./jenkins.rbac.yaml
 
-kubectl apply -n jenkins -f ./jenkins/jenkins.deployment.yaml
+kubectl apply -n jenkins -f ./jenkins.deployment.yaml
 
 kubectl -n jenkins get pods
 
@@ -68,7 +68,7 @@ kubectl -n jenkins get pods
 
 ```
 
-kubectl apply -n jenkins -f ./jenkins/jenkins.service.yaml
+kubectl apply -n jenkins -f ./jenkins.service.yaml
 
 ```
 
