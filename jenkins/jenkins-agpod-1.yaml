@@ -1,0 +1,39 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: jenkins-agent-1
+  labels:
+    app: jenkins-agent
+spec:
+  containers:
+    - name: jenkins-agent
+      image: jenkins/jnlp-agent-docker
+      args:
+        - "-url"
+        - "http://jenkins:8080"
+        - "b44d5bdc48e13152ab3ce9aa572f6922f9bb54fa0703f795cf9d96fce40ab430"
+        - "jenkins-agent-1"
+      env:
+        - name: JENKINS_AGENT_WORKDIR
+          value: "/var/jenkins_home/agent-1"
+      resources:
+        limits:
+          memory: "512Mi"
+          cpu: "500m"
+        requests:
+          memory: "256Mi"
+          cpu: "250m"
+      securityContext:
+        runAsGroup: 1001  # Replace with your Docker group ID
+        runAsUser: 1001  # Optional: Replace with a valid user ID
+      volumeMounts:
+        - name: jenkins-agent-home
+          mountPath: /var/jenkins_home/agent-1
+        - name: docker-sock-volume
+          mountPath: /var/run/docker.sock
+  volumes:
+    - name: jenkins-agent-home
+      emptyDir: {}
+    - name: docker-sock-volume
+      hostPath:
+        path: /var/run/docker.sock
